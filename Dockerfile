@@ -6,12 +6,13 @@ RUN apt-get update && \
         libssl1.0.0 \
         libudev-dev libusb-0.1-4 \
         curl libcurl4 libcurl4-gnutls-dev \
-        libpython3.7-dev \
-        tzdata
+        libpython3.7-dev
+        
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata 
 
 RUN echo "Europe/Paris" | tee /etc/timezone && \
     rm -f /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
+    dpkg-reconfigure --frontend noninteractive tzdata
 
 ARG APP_HASH
 ARG BUILD_DATE
